@@ -1,24 +1,14 @@
 package Models;
 
 public class Student extends Person {
-    private int id;
     private String parentPhoneNumber;
 
     public Student(int id ,String name , int age ,String parentPhoneNumber){
         super(name,age); 
         this.parentPhoneNumber =parentPhoneNumber;
-        this.id = id;
     }
     public Student(){
 
-    }
-    
-    public int getId(){
-        return this.id;
-    }
-
-    public void setId(int id){
-        this.id = id; 
     }
 
     public String getParentPhoneNumber() {

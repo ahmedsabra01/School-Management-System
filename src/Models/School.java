@@ -8,8 +8,8 @@ public class School {
     private String address;
     private String phoneNumber;
     private List<Student> students = new ArrayList<>();
-    List<Teacher>teachers = new ArrayList<>();
-    List<Grade>grades = new ArrayList<>();
+    private List<Teacher>teachers = new ArrayList<>();
+    private List<Grade>grades = new ArrayList<>();
     public School(String name, String address, String phoneNumber) {
         this.name = name;
         this.phoneNumber= phoneNumber;
