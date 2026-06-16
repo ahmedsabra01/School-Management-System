@@ -91,4 +91,21 @@ public class SchoolServices {
         if(grade == null)return;
         school.removeGrade(grade);
     }
+    public void assignStudentToGrade(Grade grade , Student Student){
+        grade.addStudent(Student);
+    }
+    public void removeStudentFromGrade(Grade grade , Student Student){
+        grade.removeStudent(Student);
+    }
+    public void assignTeacherToGrade(Grade grade , Teacher teacher){
+        grade.assignTeacher(teacher);
+    }
+
+    /*
+    Add Grade
+Get Grade By Code
+Assign Student To Grade
+Remove Student From Grade
+View Students In Grade
+    */
 }
