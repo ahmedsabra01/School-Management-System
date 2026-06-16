@@ -44,7 +44,7 @@ public class Hmi {
                     getTeacher();
                     break;
                 case "removestudentbyname":
-                    removeStudentByName();
+                    removeStudent();
                     break;
                 case "removeteacherbyname":
                     removeTeacher();
@@ -123,7 +123,7 @@ public class Hmi {
         }
         
     }
-    private void removeStudentByName(){
+    private void removeStudent(){
         System.out.println("Enter Name");
         String name = scanner.nextLine();
         Student student = schoolServices.getStudentByName(name);
