@@ -38,13 +38,14 @@ It demonstrates how to organize a Java application using clean OOP principles an
 - `HMI` → Handles user interaction (console interface)
 
 # Features (Current Stage)
-
 - Add Student
 - Add Teacher
-- View all Students
-- View all Teachers
-- Search Student/Teacher by name
-- Basic Grade structure
+- View All Students
+- View All Teachers
+- Search Student By Name
+- Search Teacher By Name
+- Remove Student
+- Remove Teacher
 
 # Future Improvements
 - Add SchoolService layer
@@ -53,6 +54,13 @@ It demonstrates how to organize a Java application using clean OOP principles an
 - Add grade assignment system
 - Add database integration using JDBC
 - Refactor into layered architecture (Controller / Service / Repository)
+
+# Design Improvements
+- Refactored HMI from static design to object-oriented design
+- Applied Constructor Injection
+- Used private final fields for immutable dependencies
+- Improved encapsulation in School and SchoolService
+- Reduced code duplication using helper methods
 
 # Tech Stack
 
