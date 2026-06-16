@@ -78,6 +78,7 @@ public class SchoolServices {
     // }
 
     public void removeTeacher(Teacher teacher){
+        if (teacher == null)return;
         school.removeTeacher(teacher);
     }
 
@@ -87,6 +88,7 @@ public class SchoolServices {
     // }
     
     public void removeGrade(Grade grade){
+        if(grade == null)return;
         school.removeGrade(grade);
     }
 }
