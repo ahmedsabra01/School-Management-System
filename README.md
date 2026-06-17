@@ -38,6 +38,9 @@ It demonstrates how to organize a Java application using clean OOP principles an
 - `HMI` → Handles user interaction (console interface)
 
 # Features (Current Stage)
+
+- Implemented OOP structure for School Management System
+- Created core models: Student, Teacher, Grade, School
 - Add Student
 - Add Teacher
 - View All Students
@@ -46,6 +49,14 @@ It demonstrates how to organize a Java application using clean OOP principles an
 - Search Teacher By Name
 - Remove Student
 - Remove Teacher
+- Built service layer (SchoolServices) to handle business logic
+- Implemented CLI interface (HMI) for user interaction
+- Added Grade management:
+  - Assign / Remove Students
+  - Assign / Remove Teachers
+  - Search functionality by name/code
+- Applied Dependency Injection using constructor injection
+- Improved encapsulation and separation of concerns
 
 # Future Improvements
 - Add SchoolService layer
