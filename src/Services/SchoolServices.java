@@ -22,10 +22,20 @@ public class SchoolServices {
     }
 
     public void addTeacher(Teacher teacher){
-        this.school.addTeacher(teacher);
+        if (teacher == null) {
+            return;
+        }
+        if (getTeacherByName(teacher.getName())==null) {
+            this.school.addTeacher(teacher);
+        }
     }
     public void addGrade(Grade grade){
-        this.school.addGrade(grade);
+        if (grade == null) {
+            return;
+        }
+        if (getGradeByCode(grade.getCode()) == null) {
+            this.school.addGrade(grade);
+        } 
     }
 
     public Teacher getTeacherByName(String name){
@@ -36,7 +46,10 @@ public class SchoolServices {
         }
         return null;
     }
-
+    public List<Grade> getAllGrades(){
+        return school.getGrades();
+    }
+    
     public Grade getGradeByCode(String code){
         for(Grade grade : school.getGrades()){
             if(normalize(grade.getCode()).equals(normalize(code))){
@@ -47,7 +60,12 @@ public class SchoolServices {
     }
 
     public void addStudent(Student student){
-        this.school.addStudent(student);
+        if (student == null) {
+            return;
+        }
+        if (getStudentByName(student.getName())== null) {
+            this.school.addStudent(student);
+        }
     }
 
     public Student getStudentByName(String name){
@@ -91,21 +109,29 @@ public class SchoolServices {
         if(grade == null)return;
         school.removeGrade(grade);
     }
-    public void assignStudentToGrade(Grade grade , Student Student){
-        grade.addStudent(Student);
+    public void assignStudentToGrade(Grade grade , Student student){
+        if (grade == null || student == null) {
+            return;
+        }
+        grade.addStudent(student);
     }
-    public void removeStudentFromGrade(Grade grade , Student Student){
-        grade.removeStudent(Student);
+    public void removeStudentFromGrade(Grade grade , Student student){
+        if (grade == null || student == null) {
+            return;
+        }
+        grade.removeStudent(student);
     }
     public void assignTeacherToGrade(Grade grade , Teacher teacher){
+        if (grade == null || teacher == null) {
+            return;
+        }
         grade.assignTeacher(teacher);
     }
+    public void removeTeacherFromGrade(Grade grade ){
+        if (grade == null) {
+            return;
+        }
+        grade.removeTeacher();
+    }
 
-    /*
-    Add Grade
-Get Grade By Code
-Assign Student To Grade
-Remove Student From Grade
-View Students In Grade
-    */
 }

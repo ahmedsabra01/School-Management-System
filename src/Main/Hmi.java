@@ -2,6 +2,8 @@ package Main;
 
 import java.util.List;
 import java.util.Scanner;
+
+import Models.Grade;
 import Models.Person;
 import Models.Student;
 import Models.Teacher;
@@ -21,7 +23,7 @@ public class Hmi {
         String action;
         do {
             System.out.println("What do you want to do?");
-            System.out.println("Add Student ---- Add Teacher ---- Get All Students ---- Get All Teachers ---- Get Student By Name ---- Get Teacher By Name ---- Remove Student By Name ---- Remove Teacher By Name");
+            System.out.println("Add Student ---- Add Teacher ---- Get All Students ---- Get All Teachers \nGet Student By Name ---- Get Teacher By Name ---- Remove Student By Name ---- Remove Teacher By Name  \nAdd Grade ---- Get All Grades ---- Remove Grade By Code ---- Assign Teacher To Grade \nRemove Teacher From Grade ---- Assign Student To Grade ---- Remove Student From Grade \nselectAllStudentsFromGrade");
             action = scanner.nextLine().toLowerCase().trim().replace(" ", "");;
 
             switch (action) {
@@ -38,17 +40,38 @@ public class Hmi {
                     getAllTeachers();
                     break;
                 case "getstudentbyname":
-                    getStudent();
+                    findStudentByInput();
                     break;
                 case "getteacherbyname":
-                    getTeacher();
+                    findTeacherByInput();
                     break;
                 case "removestudentbyname":
                     removeStudent();
                     break;
                 case "removeteacherbyname":
                     removeTeacher();
-                    break;    
+                    break;  
+                case "addgrade":
+                    addGrade();
+                    break;
+                case "getgrades":
+                    selectGrades();
+                    break;
+                case "assignteachertograde":
+                    assignTeacherToGrade();
+                    break;
+                case "removeteacherfromgrade":
+                    removeTeacherFromGrade();
+                    break;  
+                case "assignstudenttograde":
+                    assignStudentToGrade();
+                    break;
+                case "removestudentfromgrade":
+                    removeStudentFromGrade();
+                    break;
+                case "selectallstudentsfromgrade":
+                    selectAllStudentsFromGrade();
+                    break;
                 default:
                     break;
             }
@@ -57,6 +80,7 @@ public class Hmi {
         } while (!action.toLowerCase().equals("exit"));
     
     }
+
 
 
     private  void addStudent(){
@@ -95,31 +119,35 @@ public class Hmi {
         }
     }
 
-        private void getAllTeachers(){
+    private void getAllTeachers(){
         List<Teacher> teachers = schoolServices.getAllTeachers();
         for (Teacher teacher : teachers) {
             System.out.println(teacher.getData());  
         }
     }
-    private void getStudent(){
+    private Student findStudentByInput(){
         System.out.println("Enter Name");
         String name = scanner.nextLine();
         Student student = schoolServices.getStudentByName(name);
         if (student != null) {
             System.out.println(student.getData());
+            return student;
         } else {
             System.out.println("Student Not Found");
+            return null;
         }
         
     }
-    private void getTeacher(){
+    private Teacher findTeacherByInput(){
         System.out.println("Enter Name");
         String name = scanner.nextLine();
         Teacher teacher = schoolServices.getTeacherByName(name);
         if(teacher != null){
             System.out.println(teacher.getData());
+            return teacher;
         }else{
-             System.out.println("Teacher Not Found");
+            System.out.println("Teacher Not Found");
+            return null;
         }
         
     }
@@ -144,6 +172,89 @@ public class Hmi {
             System.out.println("Teacher Removed");
         } else {
             System.out.println("Teacher Not Found");
+        }
+    }
+    /*
+    Add Grade
+Get Grade By Code
+Assign Student To Grade
+Remove Student From Grade
+View Students In Grade
+    */
+
+    private void addGrade(){
+        Grade grade = new Grade();
+        System.out.println("Enter Grade Name ");
+        grade.setName(scanner.nextLine());
+        System.out.println("Enter Grade Code ");
+        grade.setCode(scanner.nextLine());
+        schoolServices.addGrade(grade);
+    }
+
+    private void selectGrades(){
+        for (Grade grade : schoolServices.getAllGrades()) {
+            System.out.println("Name: " + grade.getName()+ " Code: " + grade.getCode()
+        );
+        }
+    }
+    private Grade getGradeByCode(){
+        System.out.println("Enter Grade Code : ");
+        String code = scanner.nextLine();
+        Grade grade =schoolServices.getGradeByCode(code);
+        return grade;
+    }
+
+    private void assignStudentToGrade(){
+        Grade grade = getGradeByCode();
+        Student student = findStudentByInput();
+        if (grade == null || student == null) {
+            System.out.println("Opration Failed");
+            return;
+        }
+        schoolServices.assignStudentToGrade(grade, student);
+        System.out.printf("Student (%s) has been Assigned To Grade (%s) \n",student.getName(), grade.getName());
+    }
+
+    private void removeStudentFromGrade(){
+        Grade grade = getGradeByCode();
+        Student student = findStudentByInput();
+        if (grade == null || student == null) {
+            System.out.println("Opration Failed");
+            return;
+        }
+        schoolServices.removeStudentFromGrade(grade, student);
+        System.out.printf("Student (%s) has been Removed from Grade (%s) \n",student.getName(), grade.getName());
+    }
+    private void assignTeacherToGrade(){
+        Grade grade = getGradeByCode();
+        Teacher teacher = findTeacherByInput();
+        if (grade == null || teacher == null) {
+            System.out.println("Opration Failed");
+            return;
+        }
+        schoolServices.assignTeacherToGrade(grade, teacher);
+        System.out.printf("Teacher (%s) has been Assigned To Grade (%s) \n",teacher.getName(), grade.getName());
+    }
+
+    private void removeTeacherFromGrade() {
+        schoolServices.getAllGrades();   
+        Grade grade = getGradeByCode();
+        if (grade == null) {
+            System.out.println("Opration Failed");
+            return;
+        }
+        schoolServices.removeTeacherFromGrade(grade);
+        System.out.printf("Teacher (%s) has been Removed From Grade (%s) \n",grade.getTeacher(), grade.getName());
+    }
+
+    private void selectAllStudentsFromGrade(){
+        Grade grade = getGradeByCode();
+        if(grade == null){
+            System.out.println("Grade Not Found");
+            return;
+        }
+        for (Student student : grade.getStudents()) {
+            System.out.println(student.getData());            
         }
     }
 
