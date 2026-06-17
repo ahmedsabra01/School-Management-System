@@ -53,11 +53,18 @@ public class Grade {
     }
     public void addStudent(Student student){
         if (student == null) return ;
-        students.add(student);
+        if (!students.contains(student)) {
+            students.add(student);
+        }  
     }
     public void removeStudent(Student student){
         if (student == null) return ;
         students.remove(student);
+    }
+
+    public void removeTeacher(){
+        if (teacher == null)return;      
+        this.teacher = null;
     }
 
 
